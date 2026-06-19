@@ -18,11 +18,13 @@ export default function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [convertTo, setConvertTo] = useState('javascript')
+  const [mobileTab, setMobileTab] = useState('editor')
 
   async function callAPI(endpoint, body) {
     setLoading(true)
     setError(null)
     setResult(null)
+    setMobileTab('results') // Auto-switch to results tab on mobile
     try {
       const res = await fetch(`${API}/${endpoint}`, {
         method: 'POST',
@@ -118,9 +120,26 @@ export default function App() {
         </div>
       </header>
 
+      {/* Mobile Tab Switcher */}
+      <div className="cs-mobile-tabs">
+        <button
+          className={`cs-mobile-tab-btn ${mobileTab === 'editor' ? 'active' : ''}`}
+          onClick={() => setMobileTab('editor')}
+        >
+          📝 Editor
+        </button>
+        <button
+          className={`cs-mobile-tab-btn ${mobileTab === 'results' ? 'active' : ''}`}
+          onClick={() => setMobileTab('results')}
+        >
+          📊 Results
+          {result && <span className="cs-tab-dot" />}
+        </button>
+      </div>
+
       {/* Body: editor | results */}
       <div className="cs-body">
-        <div className="cs-editor-pane">
+        <div className={`cs-editor-pane ${mobileTab === 'editor' ? 'active' : 'inactive'}`}>
           <CodeEditor
             code={code}
             language={language}
@@ -128,7 +147,7 @@ export default function App() {
           />
         </div>
 
-        <div className="cs-result-pane">
+        <div className={`cs-result-pane ${mobileTab === 'results' ? 'active' : 'inactive'}`}>
           <AnalysisPanel
             result={result}
             loading={loading}
@@ -140,3 +159,4 @@ export default function App() {
     </div>
   )
 }
+

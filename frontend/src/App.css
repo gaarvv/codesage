@@ -675,21 +675,78 @@
   font-weight: 700;
 }
 
+/* ── Mobile Tabs ────────────────────────────────────────────────────── */
+.cs-mobile-tabs {
+  display: none; /* Hidden on desktop */
+}
+
 /* ═══════════════════════════════════════════════════════════════════════
    Responsive
    ═══════════════════════════════════════════════════════════════════════ */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
+  .cs-mobile-tabs {
+    display: flex;
+    background: rgba(10, 10, 26, 0.95);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 6px 12px;
+    gap: 8px;
+    z-index: 5;
+    backdrop-filter: blur(8px);
+  }
+
+  .cs-mobile-tab-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+    border-radius: var(--radius-md);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  .cs-mobile-tab-btn:hover {
+    color: var(--text-primary);
+    background: rgba(99, 102, 241, 0.04);
+  }
+
+  .cs-mobile-tab-btn.active {
+    color: var(--text-bright);
+    background: rgba(99, 102, 241, 0.12);
+    border-color: var(--border-default);
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.1);
+  }
+
+  .cs-tab-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent-3);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-3);
+  }
+
+  /* Control visibility based on active tab class on mobile */
+  .cs-editor-pane.inactive,
+  .cs-result-pane.inactive {
+    display: none !important;
+  }
+
+  .cs-editor-pane.active,
+  .cs-result-pane.active {
+    display: flex !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
   .cs-body {
     flex-direction: column;
-  }
-  .cs-editor-pane {
-    border-right: none;
-    border-bottom: 1px solid var(--border-subtle);
-    min-height: 40vh;
-  }
-  .cs-result-pane {
-    width: 100%;
-    flex-shrink: 1;
   }
 }
 
@@ -706,9 +763,16 @@
   .cs-controls {
     flex-wrap: wrap;
     gap: 6px;
+    justify-content: center;
+    width: 100%;
+  }
+  .cs-brand {
+    justify-content: center;
+    width: 100%;
   }
   .cs-convert-group {
     border-left: none;
     padding-left: 0;
   }
 }
+
