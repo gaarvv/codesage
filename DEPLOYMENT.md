@@ -63,7 +63,7 @@ Both projects follow the same pattern:
 5. Environment Variables:
    - Key: `GROQ_API_KEY`
    - Value: (your key from Step 0)
-6. Deploy. Copy URL: `https://codesage-backend-xxxx.onrender.com`
+6. Deploy. Copy URL: `https://codesage-backend-r2fj.onrender.com`
 
 > CodeSage backend is lightweight — no model download, starts fast.
 
@@ -73,7 +73,7 @@ Both projects follow the same pattern:
 2. Vercel → **Add New Project** → import `codesage-frontend`
 3. Environment Variables:
    - Key: `VITE_API_URL`
-   - Value: `https://codesage-backend-xxxx.onrender.com`
+   - Value: `https://codesage-backend-r2fj.onrender.com`
 4. Deploy
 
 ---

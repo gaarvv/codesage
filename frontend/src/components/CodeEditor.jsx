@@ -16,6 +16,22 @@ const MONACO_LANG_MAP = {
   kotlin: 'kotlin',
 }
 
+const EXT_MAP = {
+  python: 'py',
+  javascript: 'js',
+  typescript: 'ts',
+  java: 'java',
+  c: 'c',
+  cpp: 'cpp',
+  csharp: 'cs',
+  go: 'go',
+  rust: 'rs',
+  php: 'php',
+  ruby: 'rb',
+  swift: 'swift',
+  kotlin: 'kt',
+}
+
 const DEFAULT_SNIPPETS = {
   python: `def bubble_sort(arr):
     n = len(arr)
@@ -42,6 +58,7 @@ fetchUser(1)`,
 
 export default function CodeEditor({ code, language, onChange }) {
   const monacoLang = MONACO_LANG_MAP[language] || language
+  const ext = EXT_MAP[language] || language
 
   function handleMount(editor) {
     if (!code) {
@@ -52,20 +69,31 @@ export default function CodeEditor({ code, language, onChange }) {
 
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      {/* File tab bar */}
       <div style={{
-        padding: '6px 14px',
-        background: '#161b22',
-        borderBottom: '1px solid #30363d',
+        padding: '8px 16px',
+        background: 'var(--bg-surface)',
+        borderBottom: '1px solid var(--border-subtle)',
         fontSize: '12px',
-        color: '#8b949e',
+        color: 'var(--text-muted)',
         display: 'flex',
         alignItems: 'center',
-        gap: '8px',
+        gap: '10px',
+        fontFamily: "'JetBrains Mono', 'Consolas', monospace",
       }}>
-        <span style={{ color: '#e6edf3', fontFamily: 'monospace' }}>main.{language === 'python' ? 'py' : language === 'javascript' ? 'js' : language === 'typescript' ? 'ts' : language}</span>
-        <span>·</span>
+        <span style={{
+          color: 'var(--text-primary)',
+          fontWeight: 500,
+          padding: '3px 10px',
+          background: 'rgba(99, 102, 241, 0.08)',
+          borderRadius: '6px',
+          border: '1px solid rgba(99, 102, 241, 0.12)',
+        }}>
+          main.{ext}
+        </span>
+        <span style={{ color: 'var(--border-default)' }}>·</span>
         <span>{code.split('\n').length} lines</span>
-        <span>·</span>
+        <span style={{ color: 'var(--border-default)' }}>·</span>
         <span>{code.length} chars</span>
       </div>
 
@@ -78,15 +106,19 @@ export default function CodeEditor({ code, language, onChange }) {
         onMount={handleMount}
         options={{
           fontSize: 14,
+          fontFamily: "'JetBrains Mono', 'Consolas', 'Monaco', monospace",
           minimap: { enabled: false },
           lineNumbers: 'on',
           scrollBeyondLastLine: false,
           wordWrap: 'on',
           tabSize: 2,
           automaticLayout: true,
-          padding: { top: 12, bottom: 12 },
+          padding: { top: 14, bottom: 14 },
           renderLineHighlight: 'line',
           smoothScrolling: true,
+          cursorSmoothCaretAnimation: 'on',
+          cursorBlinking: 'smooth',
+          bracketPairColorization: { enabled: true },
         }}
       />
     </div>
